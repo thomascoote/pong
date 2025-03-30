@@ -2,41 +2,50 @@ from turtle import Turtle, Screen
 
 
 class Court:
-    def __init__(self):
-        self.screen = Screen()
+    def __init__(self, canvas_width, canvas_height):
+        self.x_size = canvas_width
+        self.y_size = canvas_height
+        self.left_scoreboard = Turtle()
+        self.right_scoreboard = Turtle()
         self.line = Turtle()
-        self.screen_x = 0
-        self.screen_y = 0
+        self.left_score = "0"
+        self.right_score = 0
+        self.scoreboard()
 
 
     def screen_setup(self):
-        # Set screen resolution
-        self.screen_x = 2000
-        self.screen_y = (self.screen_x / 16) * 9
-
-        #Set screen BG Colour
-        self.screen.bgcolor("black")
-
-        #Set Screen Title
-        self.screen.title("Pong")
-
-        #Initialise the screen
-        self.screen.setup(width=self.screen_x, height=self.screen_y)
 
         #Draw center court line
+        self.line.speed(10)
         self.line.penup()
         self.line.pen(fillcolor="white", pencolor="white", pensize=5)
         self.line.shape("square")
-        self.line.goto(0, self.screen_y / 2)
+        self.line.hideturtle()
+        self.line.goto(0, self.y_size / 2)
         self.line.setheading(-90)
         #Dotted line
         still_drawing = True
         while still_drawing:
+            print(f"Still drawing\n")
             self.line.pendown()
             self.line.forward(20)
             self.line.penup()
             self.line.forward(20)
-            if self.line.ycor() == self.screen_y/2:
+            if self.line.ycor() <= -self.y_size:
                 still_drawing = False
+
+    def scoreboard(self):
+        self.left_scoreboard.pen(fillcolor="white",pencolor="white")
+        self.left_scoreboard.hideturtle()
+        self.left_scoreboard.penup()
+        self.left_scoreboard.goto(-60,(self.y_size/2-80))
+        self.left_scoreboard.write(self.left_score, font= ("arial", 40, "normal"), align= "center")
+
+        self.right_scoreboard.pen(fillcolor="white",pencolor="white")
+        self.right_scoreboard.hideturtle()
+        self.right_scoreboard.penup()
+        self.right_scoreboard.goto(60,(self.y_size/2-80))
+        self.right_scoreboard.write(self.right_score,  font= ("arial", 40, "normal"), align= "center")
+
 
 
