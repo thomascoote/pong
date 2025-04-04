@@ -8,7 +8,7 @@ class Court:
         self.left_scoreboard = Turtle()
         self.right_scoreboard = Turtle()
         self.line = Turtle()
-        self.left_score = "0"
+        self.left_score = 0
         self.right_score = 0
         self.scoreboard()
 
@@ -26,7 +26,6 @@ class Court:
         #Dotted line
         still_drawing = True
         while still_drawing:
-            print(f"Still drawing\n")
             self.line.pendown()
             self.line.forward(20)
             self.line.penup()
@@ -47,5 +46,11 @@ class Court:
         self.right_scoreboard.goto(60,(self.y_size/2-80))
         self.right_scoreboard.write(self.right_score,  font= ("arial", 40, "normal"), align= "center")
 
-
-
+    def increase_left_score(self):
+        self.left_score += 1
+        self.left_scoreboard.clear()
+        self.scoreboard()
+    def increase_right_score(self):
+        self.right_score += 1
+        self.right_scoreboard.clear()
+        self.scoreboard()
